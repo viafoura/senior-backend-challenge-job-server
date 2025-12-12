@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: jdbc:mysql://db:3306/jobs
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  flyway:
+    enabled: true
+
+server:
+  port: 8080
+
+# Async executor settings
+  task:
+    execution:
+      pool:
+        core-size: 10
+        max-size: 20
+        queue-capacity: 50
+      thread-name-prefix: async-job-
+
+
+external:
+  process:
+    url: http://mock-external:8081/
+
+logging:
+  level:
+    root: INFO
+    com.interview.asyncjobserver: DEBUG
+
+

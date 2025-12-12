@@ -1,0 +1,28 @@
+package com.example.jobserver.infrastructure.config;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties(prefix = "external-service")
+public class ExternalServiceProperties {
+
+    private String url = "http://mock-external:8081";
+    private int timeout = 30000;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+}

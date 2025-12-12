@@ -13,6 +13,30 @@ Build a job server that allows users to submit asynchronous jobs, processes them
 
 ---
 
+## Instructions
+
+1. Build the java artifact by running the command
+
+```bash
+./mvnw clean install -DskipTests
+```
+
+2. To run the whole system, you can use docker compose to run all 3 services: Mysql database, Mock External Service, and the Job Server
+
+```bash
+docker-compose up -d
+```
+
+3. There are some integration bash scripts in `/scripts` that you can copy (or run) to submit jobs to the job-server
+
+## Key Design Decisions
+
+1. **Framework**: Spring Boot 4.x with Java 25
+2. **Database**: Mysql with Spring Data JPA
+3. **Async Processing**: Use Virtual threads instead of Spring Webflux because it requires a bit of a learning curve and time is a factor 
+4. **Migration**: Opt-out of using liquibase or flyway for initializing seed data. Instead, created 2 sql scripts that does exactly what I need
+5. **Testing**: Opt to write bash scripts for integration tests rather than write extensive *IT.java tests because I needed a quick way to verify that data flow is working
+
 ## Functional User Stories
 
 ### 1. Submit Job

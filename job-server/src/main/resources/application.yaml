@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: jobserver
+
+  datasource:
+    url: jdbc:mysql://${DB_URL:localhost}:3306/jobs?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    defer-datasource-initialization: true
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        type:
+          preferred_uuid_jdbc_type: CHAR
+  # Enable virtual threads for async processing
+  threads:
+    virtual:
+      enabled: true
+
+server:
+  port: 8080
+
+# Actuator configuration for health checks
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+# External service configuration
+external-service:
+  url: http://mock-external:8081
+  timeout: 30000
+
+# Async processing configuration
+async:
+  executor:
+    core-pool-size: 10
+    max-pool-size: 50
+    queue-capacity: 100
+
